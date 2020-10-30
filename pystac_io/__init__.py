@@ -20,7 +20,7 @@ PYSTAC_IO: Dict[str, IoReadWrite] = {}
 def add(module_name, io_read_write):
     """Add a new pystac_io module
 
-    This method should be called by any  that implements new read and write IO methods
+    This method should be called by any module that implements new read and write IO methods
     during init so that they're added to the list of avaiable IO modules.
 
     See pystac_io.https for an example.
