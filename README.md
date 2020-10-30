@@ -2,7 +2,7 @@
 
 PySTAC IO is a Python library that provides additional IO implementations for [`pystac.STAC_IO`](https://pystac.readthedocs.io/en/latest/concepts.html#using-stac-io).
 
-PySTAC supports reading and writing STAC catalogs via the local filesytem. The project provides:
+PySTAC IO extends [pystac](https://github.com/stac-utils/pystac) to support the following url schemes:
 
 | Module | Scheme | Reads? | Writes? |
 |--------|------------|-------|--------|
