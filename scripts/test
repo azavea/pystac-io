@@ -22,7 +22,7 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
         flake8 pystac_io tests
 
         # Code formatting
-        black pystac_io tests
+        black --check pystac_io tests
 
         # Run tests
         python -m unittest discover tests
