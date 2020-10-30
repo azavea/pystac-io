@@ -41,21 +41,24 @@ s3_catalog = pystac.Catalog.from_file("s3://bucket/path/to/catalog.json")
 
 #### Multiple IO Modules
 
-`pystac.STAC_IO` is only able to register a single global read and write handler. If you need to use multiple `pystac_io` modules in the same script you need to unregister one before registering another:
+`pystac.STAC_IO` is only able to register a single global read and write handler. If you need to use multiple `pystac_io` modules in the same script you need to unregister one before registering another.
+
+Enable a module with `pystac_io.register` and disable with `pystac_io.unregister` or use `pystac_io.register` as a  context manager:
 
 ```python
 import pystac
 import pystac_io
 
+# Manual management
 import pystac_io.s3
 pystac_io.register("s3")
 s3_catalog = pystac.Catalog.from_file("s3://bucket/path/to/catalog.json")
 pystac_io.unregister()
 
+# Context manager
 import pystac_io.https
-pystac_io.register("https")
-https_catalog = pystac.Catalog.from_file("https://foo.com/path/to/catalog.json")
-pystac_io.unregister()
+with pystac_io.register("https"):
+    https_catalog = pystac.Catalog.from_file("https://foo.com/path/to/catalog.json")
 ```
 
 #### Adding Your Own IO Module

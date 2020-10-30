@@ -1,4 +1,5 @@
 from collections import namedtuple
+from contextlib import AbstractContextManager
 from typing import Dict, List
 
 from pystac import STAC_IO
@@ -35,24 +36,39 @@ def loaded_modules() -> List[str]:
     return PYSTAC_IO.keys()
 
 
-def register(module_name):
-    """Register PYSTAC_IO {module_name} to STAC_IO.[read|write]_text_method handlers
+class PyStacIoContextManager(AbstractContextManager):
+    """ Manages loading and unloading of custom IO methods for pystac.STAC_IO """
 
-    The PYSTAC_IO interface only allows a single method to be loaded at a time. Call this
-    method in downstream code before performing IO operations reliant on a particular module.
+    def __enter__(self):
+        pass
 
-    """
-    if module_name in PYSTAC_IO.keys():
-        io = PYSTAC_IO[module_name]
-        if io.read is not None:
-            STAC_IO.read_text_method = io.read
-        if io.write is not None:
-            STAC_IO.write_text_method = io.write
-    else:
-        err_str = "pystac_io.register(module_name) must be one of {}".format(
-            PYSTAC_IO.keys()
-        )
-        raise ValueError(err_str)
+    def __exit__(self, exc_type, exc_value, traceback):
+        unregister()
+        return None
+
+    def __call__(self, module_name):
+        """Register module_name and return a context manager object
+
+        Perform register here rather than in __enter__ so that we register for both
+        context manager and regular function invocations
+
+        """
+        if module_name in PYSTAC_IO.keys():
+            io = PYSTAC_IO[module_name]
+            if io.read is not None:
+                STAC_IO.read_text_method = io.read
+            if io.write is not None:
+                STAC_IO.write_text_method = io.write
+        else:
+            err_str = "pystac_io.register(module_name) must be one of {}".format(
+                PYSTAC_IO.keys()
+            )
+            raise ValueError(err_str)
+        return self
+
+
+""" Replace pystac.STAC_IO handlers with handlers provided by pystac_io.{module_name} """
+register = PyStacIoContextManager()
 
 
 def unregister():

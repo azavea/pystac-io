@@ -19,9 +19,12 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
         usage
     else
         # Lint
-        flake8 pystac_io
+        flake8 pystac_io tests
 
         # Code formatting
-        black pystac_io
+        black pystac_io tests
+
+        # Run tests
+        python -m unittest discover tests
     fi
 fi
