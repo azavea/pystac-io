@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="pystac_io",
+    name="pystac-io",
     version="0.1.0",
     description="Python library providing additional IO implementations for PySTAC",
     author="Azavea",

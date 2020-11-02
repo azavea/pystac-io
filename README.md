@@ -11,17 +11,17 @@ PySTAC IO extends [pystac](https://github.com/stac-utils/pystac) to support the 
 
 ## Installation
 
-Clone then install locally into your environment via pip:
+Install via pip:
 
 ```shell
-pip install .
+pip install pystac-io
 ```
 
 You'll also need to install the dependencies for the modules you wish to use.
 For example, to use the `s3` module:  
 
 ```shell
-pip install ".[s3]"
+pip install "pystac-io[s3]"
 ```
 
 ## Usage
@@ -108,3 +108,7 @@ Make changes as desired, then run:
 ```shell
 ./scripts/test
 ```
+
+## Releasing a new version
+
+Follow the checklist in [RELEASE.md](./RELEASE.md)
