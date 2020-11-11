@@ -11,7 +11,6 @@ setup(
     packages=find_packages(),
     install_requires=["pystac>=0.5.2"],
     extras_require={
-        "https": ["requests>=2.24.0"],
         "s3": ["boto3>=1.16.6"],
         "fsspec": ["fsspec>=0.8.4"],
     },

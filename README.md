@@ -7,7 +7,6 @@ PySTAC IO extends [pystac](https://github.com/stac-utils/pystac) to support the 
 | Module | Scheme | Reads? | Writes? |
 |--------|-----------------|---|---|
 | fsspec | [many](#FSSpec) | X | X |
-| https  | `https://`      | X |   |
 | s3     | `s3://`         | X | X |
 
 ## Installation
@@ -76,9 +75,9 @@ s3_catalog = pystac.Catalog.from_file("s3://bucket/path/to/catalog.json")
 pystac_io.unregister()
 
 # Context manager
-import pystac_io.https
-with pystac_io.register("https"):
-    https_catalog = pystac.Catalog.from_file("https://foo.com/path/to/catalog.json")
+import pystac_io.s3
+with pystac_io.register("s3"):
+    s3_catalog = pystac.Catalog.from_file("s3://bucket/path/to/catalog.json")
 ```
 
 #### Adding Your Own IO Module
