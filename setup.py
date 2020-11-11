@@ -10,8 +10,12 @@ setup(
     license="Apache Software License 2.0",
     packages=find_packages(),
     install_requires=["pystac>=0.5.2"],
-    extras_require={"https": ["requests>=2.24.0"], "s3": ["boto3>=1.16.6"]},
-    keywords=["pystac", "pystac_io", "pystac-io", "s3", "catalog", "STAC"],
+    extras_require={
+        "https": ["requests>=2.24.0"],
+        "s3": ["boto3>=1.16.6"],
+        "fsspec": ["fsspec>=0.8.4"],
+    },
+    keywords=["pystac", "pystac_io", "pystac-io", "s3", "catalog", "STAC", "fsspec"],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
