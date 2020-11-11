@@ -5,9 +5,9 @@ PySTAC IO is a Python library that provides additional IO implementations for [`
 PySTAC IO extends [pystac](https://github.com/stac-utils/pystac) to support the following url schemes:
 
 | Module | Scheme | Reads? | Writes? |
-|--------|------------|-------|--------|
-| https  | `https://` | X     |        |
-| s3     | `s3://`    | X     | X      |
+|--------|-----------------|---|---|
+| fsspec | [many](#FSSpec) | X | X |
+| s3     | `s3://`         | X | X |
 
 ## Installation
 
@@ -39,6 +39,25 @@ s3_catalog = pystac.Catalog.from_file("s3://bucket/path/to/catalog.json")
 
 ### Advanced Usage
 
+#### FSSpec
+
+pystac-io provides a [fsspec](https://filesystem-spec.readthedocs.io/en/latest/) module which uses `fsspec` as a backend to read and write many different local and remote filesystem formats. For a complete list of available backends:
+```python
+from fsspec.registry import known_implementations
+known_implementations
+```
+
+Some of these backends require additional dependencies. Install with:
+```shell
+pip install fsspec[<backend>]
+```
+
+For example, to install the dependencies for the `s3` backend:
+
+```shell
+pip install fsspec[s3]
+```
+
 #### Multiple IO Modules
 
 `pystac.STAC_IO` is only able to register a single global read and write handler. If you need to use multiple `pystac_io` modules in the same script you need to unregister one before registering another.
@@ -56,9 +75,9 @@ s3_catalog = pystac.Catalog.from_file("s3://bucket/path/to/catalog.json")
 pystac_io.unregister()
 
 # Context manager
-import pystac_io.https
-with pystac_io.register("https"):
-    https_catalog = pystac.Catalog.from_file("https://foo.com/path/to/catalog.json")
+import pystac_io.s3
+with pystac_io.register("s3"):
+    s3_catalog = pystac.Catalog.from_file("s3://bucket/path/to/catalog.json")
 ```
 
 #### Adding Your Own IO Module
