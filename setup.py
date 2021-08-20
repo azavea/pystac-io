@@ -9,7 +9,7 @@ setup(
     url="https://github.com/azavea/pystac-io",
     license="Apache Software License 2.0",
     packages=find_packages(),
-    install_requires=["pystac>=0.5.2"],
+    install_requires=["pystac>=1.1.0"],
     extras_require={"https": ["requests>=2.24.0"], "s3": ["boto3>=1.16.6"]},
     keywords=["pystac", "pystac_io", "pystac-io", "s3", "catalog", "STAC"],
     classifiers=[
